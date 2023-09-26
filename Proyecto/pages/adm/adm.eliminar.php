@@ -1,11 +1,10 @@
-<?
+<?php
  	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
+    if (!(session_is_registered("Id"))){
       session_unset();
       session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("../../index.php");</SCRIPT>';
+      echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+      location.href=("../../index.php");</SCRIPT>';
       exit;
     }  
 	
@@ -57,7 +56,7 @@
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <? if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
 	  <? } ?>
     </ul>
@@ -73,11 +72,11 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
-	?>
+	  ?>
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
