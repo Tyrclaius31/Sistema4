@@ -31,5 +31,5 @@ ehthumbs.db
 Thumbs.db
 
 #Archivos por Ignorar
-settings.json
 Proyecto/conecta.php
+.vscode/settings.json
