@@ -1,4 +1,5 @@
 <?php
+  
   session_start();
     if (!(isset($_SESSION['Id']))){
       $_SESSION = array();
@@ -105,7 +106,7 @@
         <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
         <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
         <?php 
-          if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  
+          if($_SESSION['Cargo']=='SUPERVISOR' || $_SESSION['Cargo']=='ADMINISTRADOR'){  
           ?>
             <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
           <?php
