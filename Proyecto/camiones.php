@@ -1,11 +1,11 @@
-<?
- 	session_start("Id");
+<?php
+  session_start("Id");
     if (!(session_is_registered("Id")))
     {
       session_unset();
       session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("index.php");</SCRIPT>';
+      echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+      location.href=("index.php");</SCRIPT>';
       exit;
     }  
 	
@@ -34,18 +34,18 @@
 
 <script>
 function getMensaje(){
-var aFrases=new Array();
-aFrases[0]="Dé un apoyo y crédito sincero a los demás para contribuir a un proyecto. Céntrese en soluciones, y abóquese a las situaciones problemáticas como una oportunidad para crecer y aprender.";
-aFrases[1]="No abuse de los recreos, las horas del almuerzo, la licencia por enfermedad y otros de los privilegios proporcionados por su empleador. Sea conservador al usar los recursos de la compañía.";
-aFrases[2]="Llegar temprano al trabajo, y quedarse hasta tarde en caso de necesitar finalizar un trabajo, es algo que se valora mucho. Termine todas sus asignaciones a tiempo.";
-aFrases[3]="Si se presenta un problema inesperado que impide que usted acabe una tarea o un proyecto, hable con la gente afectada. Su jefe y sus compañeros de trabajo apreciarán su sinceridad.";
-aFrases[4]="Haga un esfuerzo para entender a su ambiente, a su empleador y a sus compañeros de trabajo. Sea tolerante con los otros y sus formas de vida.";
-aFrases[5]="Muestre respeto por los demás y por su empleador, siendo consciente de las actitudes y hábitos personales que pueden llegar a molestarlos, como pueden ser mascar chicle, fumar, hablar mucho, o hacer llamadas telefónicas personales.";
-aFrases[6]="Tómese un tiempo para escuchar a los demás y para ofrecer su ayuda cuando sea apropiado. Intente insertarse en todos los grupos. Acepte la crítica constructiva de sus pares.";
-aFrases[7]="Hacer simplemente lo que la compañía espera de usted no es suficiente. Fije por separado nuevos y mayores objetivos para su trabajo.";
-aFrases[8]="Busque maneras de hacer las tareas del trabajo más eficientemente, de modo que ambos, usted y sus compañeros de trabajo, sean más productivos.";
-aFrases[9]="Aprenda todo lo posible sobre su trabajo y cómo sus responsabilidades contribuyen a la productividad total de la empresa. Ofrézcase voluntariamente para ayudar y enseñar a otros.";
-return(aFrases[Math.floor(Math.random() * aFrases.length)]);
+  var aFrases=new Array();
+  aFrases[0]="Dé un apoyo y crédito sincero a los demás para contribuir a un proyecto. Céntrese en soluciones, y abóquese a las situaciones problemáticas como una oportunidad para crecer y aprender.";
+  aFrases[1]="No abuse de los recreos, las horas del almuerzo, la licencia por enfermedad y otros de los privilegios proporcionados por su empleador. Sea conservador al usar los recursos de la compañía.";
+  aFrases[2]="Llegar temprano al trabajo, y quedarse hasta tarde en caso de necesitar finalizar un trabajo, es algo que se valora mucho. Termine todas sus asignaciones a tiempo.";
+  aFrases[3]="Si se presenta un problema inesperado que impide que usted acabe una tarea o un proyecto, hable con la gente afectada. Su jefe y sus compañeros de trabajo apreciarán su sinceridad.";
+  aFrases[4]="Haga un esfuerzo para entender a su ambiente, a su empleador y a sus compañeros de trabajo. Sea tolerante con los otros y sus formas de vida.";
+  aFrases[5]="Muestre respeto por los demás y por su empleador, siendo consciente de las actitudes y hábitos personales que pueden llegar a molestarlos, como pueden ser mascar chicle, fumar, hablar mucho, o hacer llamadas telefónicas personales.";
+  aFrases[6]="Tómese un tiempo para escuchar a los demás y para ofrecer su ayuda cuando sea apropiado. Intente insertarse en todos los grupos. Acepte la crítica constructiva de sus pares.";
+  aFrases[7]="Hacer simplemente lo que la compañía espera de usted no es suficiente. Fije por separado nuevos y mayores objetivos para su trabajo.";
+  aFrases[8]="Busque maneras de hacer las tareas del trabajo más eficientemente, de modo que ambos, usted y sus compañeros de trabajo, sean más productivos.";
+  aFrases[9]="Aprenda todo lo posible sobre su trabajo y cómo sus responsabilidades contribuyen a la productividad total de la empresa. Ofrézcase voluntariamente para ayudar y enseñar a otros.";
+  return(aFrases[Math.floor(Math.random() * aFrases.length)]);
 }
 </script>
 </head>
@@ -128,7 +128,7 @@ document.write(getMensaje());
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -175,10 +175,10 @@ document.write(getMensaje());
                         <li><a href="pages/camiones/camion.buscar.php" title="Buscar Datos de Camión">- Buscar</a></li>
                         <li><a href="pages/camiones/camion.modificar.php" title="Modificar Datos de Camión">- Modificar</a></li>
                         <li><a href="pages/camiones/camion.eliminar.php" title="Eliminar Camión">- Eliminar</a></li>
-						<? if($_SESSION[Cargo]=='SECRETARIA'){  ?>
+						<? if($_SESSION['Cargo']=='SECRETARIA'){  ?>
        	 				<li><a href="pages/camiones/camion.informe.php" title="Informe de Camiones en Asetrans">- Informe</a></li>
         				 <? } 
-						 if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+						 if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
 						 <li><a href="pages/camiones/camion.informeadm.php" title="Informe de Camiones en Asetrans">- Informe</a></li>
 						 <? } ?>                        
                          <li><a href="#" title=""></a></li>

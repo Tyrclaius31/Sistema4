@@ -1,12 +1,12 @@
 <php?
- 	session_start("Id");
+  session_start("Id");
     if (!(session_is_registered("Id")))
     {
       session_unset();
       session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("index.php");</SCRIPT>';
-      exit;
+	    echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+                	location.href=("index.php");</SCRIPT>';
+              exit;
     } 
 	
 	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));

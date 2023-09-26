@@ -5,7 +5,7 @@
     Supervisor= SERGIO LEAL
     Fecha Inicio Proyecto= 05/05/2010
 
- -->
+-->
 
 <?php 
 function Conectarse(){
