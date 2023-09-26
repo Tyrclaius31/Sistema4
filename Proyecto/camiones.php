@@ -1,15 +1,15 @@
 <?php
-  session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-      echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-      location.href=("index.php");</SCRIPT>';
-      exit;
-    }  
+  // session_start();
+  // if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+  //     echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //     location.href=("index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -61,7 +61,7 @@ function getMensaje(){
 	      </ul> 
  
 	    <!-- First Content --> 
-	    <div id="fragment-1" class="ui-tabs-panel" style=""> 
+	    <div id="fragment-1" class="ui-tabs-panel"> 
 			<img src="images/image1.jpg" width="250" height="130" alt="" /> 
 			 <div class="info" > 
 				<h2><a href="#" >Ejercicios de Ergonomía</a></h2> 
@@ -70,7 +70,7 @@ function getMensaje(){
 	    </div> 
   
 	    <!-- Third Content --> 
-	    <div id="fragment-3" class="ui-tabs-panel ui-tabs-hide" style=""> 
+	    <div id="fragment-3" class="ui-tabs-panel ui-tabs-hide"> 
 			<img src="images/image3.jpg" width="250" height="130" alt="" /> 
 			 <div class="info" > 
 				<h2><a href="#" >Estadísticas</a></h2> 
@@ -79,7 +79,7 @@ function getMensaje(){
 	    </div> 
  
 	    <!-- Fourth Content --> 
-	    <div id="fragment-4" class="ui-tabs-panel ui-tabs-hide" style=""> 
+	    <div id="fragment-4" class="ui-tabs-panel ui-tabs-hide"> 
 			<img src="images/image4.jpg" width="250" height="130" alt="" /> 
 			 <div class="info" > 
 				<h2><a href="#" >Sentarse Correctamente</a></h2> 
@@ -113,17 +113,17 @@ document.write(getMensaje());
       <li><a href="petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
-	<? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+	<?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
-	<? } ?>    </ul>
+	<?php } ?>    </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
-          <input type="submit" name="button" id="button" value="Salir" />
+          <input type="submit" name="button" id="button" value="Salir"/>
         </a></td>
       </tr>
     </table>
@@ -136,7 +136,7 @@ document.write(getMensaje());
     <script type="text/javascript">
 		window.location="index.php";
 		</script>
-    <?
+    <?php
 		}
 	?>
   </div>
@@ -175,12 +175,12 @@ document.write(getMensaje());
                         <li><a href="pages/camiones/camion.buscar.php" title="Buscar Datos de Camión">- Buscar</a></li>
                         <li><a href="pages/camiones/camion.modificar.php" title="Modificar Datos de Camión">- Modificar</a></li>
                         <li><a href="pages/camiones/camion.eliminar.php" title="Eliminar Camión">- Eliminar</a></li>
-						<? if($_SESSION['Cargo']=='SECRETARIA'){  ?>
+						<?php if($_SESSION['Cargo']=='SECRETARIA'){  ?>
        	 				<li><a href="pages/camiones/camion.informe.php" title="Informe de Camiones en Asetrans">- Informe</a></li>
-        				 <? } 
+        				 <?php } 
 						 if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
 						 <li><a href="pages/camiones/camion.informeadm.php" title="Informe de Camiones en Asetrans">- Informe</a></li>
-						 <? } ?>                        
+						 <?php } ?>                        
                          <li><a href="#" title=""></a></li>
                         <li><a href="#" title="">______________</a></li>
                         <li><a href="pages/camiones/camion.asignar.php" title="Asignar Camión a Trabajador">- Asignar</a></li>
@@ -230,7 +230,7 @@ document.write(getMensaje());
   </div>
 </div>
 <script type="text/javascript">
-<!--
+
 swfobject.registerObject("FlashID");
 //-->
 </script>
