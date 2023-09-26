@@ -33,3 +33,4 @@ Thumbs.db
 #Archivos por Ignorar
 Proyecto/conecta.php
 .vscode/settings.json
+Proyecto/connect.php

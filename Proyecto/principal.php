@@ -1,15 +1,15 @@
-<php?
-  session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	    echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-                	location.href=("index.php");</SCRIPT>';
-              exit;
-    } 
+<?php
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 
 // Error reporting:
@@ -90,15 +90,15 @@ mysqli_query($link,"DELETE FROM notes WHERE id>3 AND dt<SUBTIME(NOW(),'0 24:0:0'
       <li><a href="petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
-	<? 
+	<?php 
   if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
-	<? } ?>    </ul>
+	<?php } ?>    </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -112,7 +112,7 @@ mysqli_query($link,"DELETE FROM notes WHERE id>3 AND dt<SUBTIME(NOW(),'0 24:0:0'
     <script type="text/javascript">
 		window.location="index.php";
 		</script>
-    <?
+    <?php
 		}
 	?>
   </div>
@@ -149,8 +149,8 @@ mysqli_query($link,"DELETE FROM notes WHERE id>3 AND dt<SUBTIME(NOW(),'0 24:0:0'
   $conexion=Conectarse();
   
   $sql="select * from notes";
-		$respuesta=mysql_query($sql,$conexion);
-		while($row=mysql_fetch_array($respuesta))
+		$respuesta=mysqli_query($conexion,$sql);
+		while($row=mysqli_fetch_array($respuesta))
 		{
 			echo "<div class='note ".$row["color"]."' style='left:200px;top:100px;z-index:1'> 
 		".$row["text"]."
@@ -159,8 +159,8 @@ mysqli_query($link,"DELETE FROM notes WHERE id>3 AND dt<SUBTIME(NOW(),'0 24:0:0'
 		}
 		
         $sql2="select * from n_operador where Estado='CONTRATADO' and Dia=".date("d")." and Mes=".date("m");
-		$respuesta=mysql_query($sql2,$conexion);
-		while($row=mysql_fetch_array($respuesta))
+		$respuesta=mysqli_query($conexion,$sql2);
+		while($row=mysqli_fetch_array($respuesta))
 		{
 			$edad=date("Y")-$row["Ano"];
 			echo "<div class='note blue' style='left:200px;top:100px;z-index:1'> 
@@ -170,8 +170,8 @@ mysqli_query($link,"DELETE FROM notes WHERE id>3 AND dt<SUBTIME(NOW(),'0 24:0:0'
 		}
 		
 		$sql="select * from petroleo where Fecha_a_Pagar=".date("Y-m-d");
-		$respuesta=mysql_query($sql,$conexion);
-		if(mysql_affected_rows()>0)
+		$respuesta=mysqli_query($conexion,$sql);
+		if(mysqli_num_rows($respuesta)>0)
 		{
 		echo "<div class='note green' style='left:200px;top:100px;z-index:1'> 
 		<center><b>Aviso de Vencimiento de Petróleo</b> <br> <br>En 2 días más Vence el Pago de la Quincena de Petróleo.</center>
@@ -186,7 +186,6 @@ mysqli_query($link,"DELETE FROM notes WHERE id>3 AND dt<SUBTIME(NOW(),'0 24:0:0'
   </div>
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>

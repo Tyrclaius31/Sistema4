@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("index.php");</SCRIPT>';
-      exit;
-    }  
+<?php
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -61,7 +61,7 @@ return(aFrases[Math.floor(Math.random() * aFrases.length)]);
 	      </ul> 
  
 	    <!-- First Content --> 
-	    <div id="fragment-1" class="ui-tabs-panel" style=""> 
+	    <div id="fragment-1" class="ui-tabs-panel"> 
 			<img src="images/image1.jpg" width="250" height="130" alt="" /> 
 			 <div class="info" > 
 				<h2><a href="#" >Ejercicios de Ergonomía</a></h2> 
@@ -70,7 +70,7 @@ return(aFrases[Math.floor(Math.random() * aFrases.length)]);
 	    </div> 
   
 	    <!-- Third Content --> 
-	    <div id="fragment-3" class="ui-tabs-panel ui-tabs-hide" style=""> 
+	    <div id="fragment-3" class="ui-tabs-panel ui-tabs-hide"> 
 			<img src="images/image3.jpg" width="250" height="130" alt="" /> 
 			 <div class="info" > 
 				<h2><a href="#" >Estadísticas</a></h2> 
@@ -79,7 +79,7 @@ return(aFrases[Math.floor(Math.random() * aFrases.length)]);
 	    </div> 
  
 	    <!-- Fourth Content --> 
-	    <div id="fragment-4" class="ui-tabs-panel ui-tabs-hide" style=""> 
+	    <div id="fragment-4" class="ui-tabs-panel ui-tabs-hide"> 
 			<img src="images/image4.jpg" width="250" height="130" alt="" /> 
 			 <div class="info" > 
 				<h2><a href="#" >Sentarse Correctamente</a></h2> 
@@ -112,14 +112,14 @@ document.write(getMensaje());
       <li><a href="petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
-	<? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+	<?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
-	<? } ?>    </ul>
+	<?php } ?>    </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -127,7 +127,7 @@ document.write(getMensaje());
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -135,7 +135,7 @@ document.write(getMensaje());
     <script type="text/javascript">
 		window.location="index.php";
 		</script>
-    <?
+    <?php
 		}
 	?>
   </div>
@@ -171,13 +171,13 @@ document.write(getMensaje());
      <h3><center>Egresos s/iva</center></h3>
       <ul>
         <li><a href="pages/pago/egresos.registro.php" title="Registrar Nuevo Egreso">- Reg. Egresos $$</a></li>
-        <? if($_SESSION[Cargo]=='SECRETARIA' or $_SESSION[Cargo]=='Secretaria' or $_SESSION[Cargo]=='secretaria'){  ?>
+        <?php if($_SESSION['Cargo']=='SECRETARIA' or $_SESSION['Cargo']=='Secretaria' or $_SESSION['Cargo']=='secretaria'){  ?>
         <li><a href="pages/pago/egresos.listar.php" title="Listar Datos de Egresos Mensual">- Listar Registro</a></li>
-        <? } 
-       	if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+        <?php } 
+       	if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
         <li><a href="pages/pago/egresos.modificar.php" title="Modificar Registros">- Mod. Registro</a></li>
         <li><a href="pages/pago/egresos.listaradm.php" title="Listar Datos de Egresos Mensual">- Listar Registro</a></li>
-		<? } ?>
+		<?php } ?>
         <li><a href="pages/pago/egresos.listar.anual.php" title="Listar Datos de Egresos Anuales">- Registro Anual</a></li>
         <li><a href="#" title="">______________</a></li>
       </ul>
@@ -185,13 +185,13 @@ document.write(getMensaje());
        <h3><center>Egresos c/iva</center></h3>
       <ul>
         <li><a href="pages/pago/egresos.registro.iva.php" title="Registrar Nuevo Egreso">- Reg. Egresos $$</a></li>
-        <? if($_SESSION[Cargo]=='SECRETARIA' or $_SESSION[Cargo]=='Secretaria' or $_SESSION[Cargo]=='secretaria'){  ?>
+        <?php if($_SESSION['Cargo']=='SECRETARIA' or $_SESSION['Cargo']=='Secretaria' or $_SESSION['Cargo']=='secretaria'){  ?>
         <li><a href="pages/pago/egresos.listar.iva.php" title="Listar Datos de Egresos Mensual">- Listar Registro</a></li>
-        <? } 
-       	if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+        <?php } 
+       	if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
         <li><a href="pages/pago/egresos.modificar.iva.php" title="Modificar Registros">- Mod. Registro</a></li>
         <li><a href="pages/pago/egresos.listaradm.iva.php" title="Listar Datos de Egresos Mensual">- Listar Registro</a></li>
-		<? } ?>
+		<?php } ?>
         <li><a href="pages/pago/egresos.listar.anual.iva.php" title="Listar Datos de Egresos Anuales">- Registro Anual</a></li>
         <li><a href="#" title="">______________</a></li>
         <li><a href="pages/pago/egresos.petroleo.php" title="Pagar Petróleo">- Pagar Petróleo</a></li>
@@ -229,7 +229,6 @@ document.write(getMensaje());
   </div>
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>
