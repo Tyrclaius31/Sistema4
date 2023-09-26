@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("index.php");</SCRIPT>';
-      exit;
-    }  
+<?php
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -40,14 +40,14 @@
       <li><a href="petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
-	<? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+	<?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
-	<? } ?>    </ul>
+	<?php } ?>    </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -55,7 +55,7 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -63,7 +63,7 @@
     <script type="text/javascript">
 		window.location="index.php";
 		</script>
-    <?
+    <?php
 		}
 	?>
   </div>
@@ -104,7 +104,7 @@
       <label>
         <input type="submit" name="button" id="button" value="Aceptar" />
         </label>
-      <?php if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <h5><a href="configurar_adm.php" title="Cambiar Clave Permiso">Cambiar Clave Permiso</a></h5>
       <?php
 		 }
@@ -112,14 +112,14 @@
 	include("conecta.php");
 	$conexion=Conectarse();
 	
-	if($_POST[button]=="Aceptar")
+	if($_POST['button']=="Aceptar")
 	{
 		$sql="select * from usuarios where Clave=".$_POST['clave1'];
-		$respuesta=mysql_query($sql,$conexion);
-		if(mysql_affected_rows()>0)
+		$respuesta=mysqli_query($conexion, $sql);
+		if(mysqli_num_rows($respuesta) > 0)
 		{
 			echo "";
-			$registro=mysql_fetch_row($respuesta);
+			$registro=mysqli_fetch_row($respuesta);
 	?>
     </h4>
     <table width="281" border="0">
@@ -172,36 +172,36 @@
     <h4><?php
 		}
 	}
-	if($_POST[button3]=="Limpiar")
+	if($_POST['button3']=="Limpiar")
 	{
 		
 		
 	}
 	
-	if($_POST[button4]=="Modificar Datos")
+	if($_POST['button4']=="Modificar Datos")
 	{
-	if($_POST[clave]!=$_POST[clave_nueva])	
+	if($_POST['clave']!=$_POST['clave_nueva'])	
 	{
 		echo '<script>alert("No puede Modificar sus datos, pues las claves no coninciden.");</script>';
 	}else{
 		
-	$sql="update usuarios set Clave='".$_POST[clave_nueva]."' WHERE Id='".$_POST[id]."' ";
+	$sql="update usuarios set Clave='".$_POST['clave_nueva']."' WHERE Id='".$_POST['id']."' ";
 			
-			$respuesta=mysql_query($sql,$conexion);
+			$respuesta=mysqli_query($conexion,$sql);
 			echo '<script>alert("La Modificacion se Realizo con exito.");</script>';
 	}
 	}
 		
-	if($_POST[button2]=="Modificar Datos")
+	if($_POST['button2']=="Modificar Datos")
 	{
-	if($_POST[nick]=="")	
+	if($_POST['nick']=="")	
 	{
 		echo '<script>alert("No puede Modificar sus datos si existen campos en Blanco.");</script>';
 	}else{
 		
-	$sql="update usuarios set Nick='".$_POST[nick]."' WHERE Id='".$_POST[id]."' ";
+	$sql="update usuarios set Nick='".$_POST['nick']."' WHERE Id='".$_POST['id']."' ";
 			
-			$respuesta=mysql_query($sql,$conexion);
+			$respuesta=mysqli_query($conexion,$sql);
 			echo '<script>alert("La Modificacion se Realizo con exito.");</script>';
 	}
 	}
@@ -214,7 +214,6 @@
  
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>
