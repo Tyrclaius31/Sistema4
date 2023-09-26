@@ -9,7 +9,7 @@
 
 <?php 
 function Conectarse(){
-	if (!($link=mysqli_connect("localhost","root","3301","asetrans"))){
+	if (!($link=mysqli_connect("localhost","root","","asetrans"))){
 		exit();
 	}
 	if (!mysqli_select_db($link,"asetrans")){
