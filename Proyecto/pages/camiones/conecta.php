@@ -7,14 +7,14 @@
 
  -->
 
- <?php 
-function Conectarse(){
-	if (!($link = mysqli_connect("localhost","root","","asetrans"))){
-		exit();
-	}
-	if (!mysqli_select_db($link,"asetrans")){
-		exit();
-	}
-	return $link;
-} 
+<?php 
+	function Conectarse(){
+		if (!($link = mysqli_connect("localhost","root","","asetrans"))){
+			exit();
+		}
+		if (!mysqli_select_db($link,"asetrans")){
+			exit();
+		}
+		return $link;
+	} 
 ?>
