@@ -1,5 +1,5 @@
 <?php
-  session_start();
+    session_start();
     if(!(isset($_SESSION["Id"]))){
       $_SESSION = array();
       session_destroy();
@@ -48,9 +48,11 @@
         <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
         <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
         <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-        <?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){?>
-          <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-          <?php } ?>
+        <?php 
+          if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){?>
+            <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
+            <?php 
+          } ?>
       </ul>
     </div>
     <div id="usuario">
@@ -64,14 +66,15 @@
         </tr>
       </table>
       <?php
-      if($_POST['button']=="Salir"){
-        session_destroy();
-        ?>
-        <script type="text/javascript">
-          window.location="../../index.php";
-        </script>
-        <?
-      }?>
+        if($_POST['button']=="Salir"){
+          session_destroy();
+          ?>
+          <script type="text/javascript">
+            window.location="../../index.php";
+          </script>
+        <?php
+        }
+      ?>
     </div>
     <div id="animacion">
       <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="595" height="95">
@@ -152,20 +155,20 @@
               ?>
               <script>document.form1.nombre.focus()</script>
             </td>
-          <td width="67"><strong>Trabajador</strong></td>
-          <td width="159">
-          <?php
-            $result = mysqli_query($conexion, "SELECT * FROM n_operador WHERE Estado='CONTRATADO'");
-            if ($row = mysqli_fetch_array($result)){ 
-              echo '<select name="nombre1" id="select">';
-              do {
-                  echo '<option value='.$row["Rut_Operador"].'>'.$row["Nombre_Operador"].'</option>';		  
-              } while ($row = mysqli_fetch_array($result)); 
-              echo '</select>';
-            }
-          ?>
-          </td>
-          <td width="85"><input type="submit" name="button2" id="button2" value="Aceptar" />
+            <td width="67"><strong>Trabajador</strong></td>
+            <td width="159">
+              <?php
+                $result = mysqli_query($conexion, "SELECT * FROM n_operador WHERE Estado='CONTRATADO'");
+                if ($row = mysqli_fetch_array($result)){ 
+                  echo '<select name="nombre1" id="select">';
+                  do {
+                      echo '<option value='.$row["Rut_Operador"].'>'.$row["Nombre_Operador"].'</option>';		  
+                  } while ($row = mysqli_fetch_array($result)); 
+                  echo '</select>';
+                }
+              ?>
+            </td>
+            <td width="85"><input type="submit" name="button2" id="button2" value="Aceptar" />
           <?php
             if($_POST['button2']=="Aceptar"){
               $sql= "SELECT a.Id,a.Marca, a.Modelo, a.Ano, a.Nombre, a.Traccion,b.Id, b.Rut_Operador, b.Nombre_Operador, b.Fono_Contacto 
@@ -175,9 +178,10 @@
               if(mysqli_num_rows($respuesta)>0){
                 echo "";
                 $registro=mysqli_fetch_row($respuesta);
-                ?></td>
-                  </tr>
-                </table><!-- Cierra tag de linea 135 -->
+                ?>
+                </td>
+              </tr>
+              </table><!-- Cierra tag de linea 135 -->
                 <table width="560" border="0" align="center">
                   <tr>
                     <td>&nbsp;</td>
@@ -260,41 +264,41 @@
                 <?php        	
               }
             }
-      if($_POST['button']=="Limpiar"){};
-      if($_POST['button']=="Aceptar Asignación"){
-        /*?> if($sql="select Id from asignacion_camiones where Id_Camion=".$_POST['id'])
-        {
-          echo '<script>alert("El Camión '.$_POST[nombre].' ya a sido Asignado a un Trabajador");</script>';
+            if($_POST['button']=="Limpiar"){};
+            if($_POST['button']=="Aceptar Asignación"){
+              /*?> if($sql="select Id from asignacion_camiones where Id_Camion=".$_POST['id'])
+              {
+                echo '<script>alert("El Camión '.$_POST[nombre].' ya a sido Asignado a un Trabajador");</script>';
 
-        }else{
-            if($sql="select Id from asignacion_camiones where Id_Trabajador=".$_POST['id2'])
-            {
-              echo '<script>alert("El Trabajador '.$_POST[nom].' ya a sido Asignado a un Camión.");</script>';
+              }else{
+                  if($sql="select Id from asignacion_camiones where Id_Trabajador=".$_POST['id2'])
+                  {
+                    echo '<script>alert("El Trabajador '.$_POST[nom].' ya a sido Asignado a un Camión.");</script>';
 
-            }else{  <?php */
-        $p_Id="";
-        $p_Id_Camion = $_POST['id'];
-        $p_Id_Trabajador = $_POST['id2'];
-        $p_Marca_Ca = $_POST['marca'];
-        $p_Modelo_Ca = $_POST['modelo'];
-        $p_Nombre_Ca = $_POST['nombre'];
-        $p_Patente_Ca = $_POST['patente'];
-        $p_Rut_Tra = $_POST['rut'];
-        $p_Nombre_Tra = $_POST['nom'];
-        $p_Fecha_Asignacion = date("Y-m-d");
-        $p_Estado = $_POST['estado'];
-        $p_Fecha_Modificacion = "";
-        $sql = "INSERT INTO asignacion_camiones 
-                VALUES('".$p_Id."','".$p_Id_Camion."','".$p_Id_Trabajador."','".$p_Marca_Ca."','".$p_Modelo_Ca."','".$p_Nombre_Ca."','".$p_Patente_Ca."','".$p_Rut_Tra."','".$p_Nombre_Tra."','".$p_Fecha_Asignacion."','".$p_Estado."','".$p_Fecha_Modificacion."')";
-        echo '<script>alert("El Camión '.$_POST['nombre'].' fue asignado al trabajador '.$_POST['nom'].' exitosamente.");</script>';
-        include("conecta.php");
-        $conexion = Conectarse();
-        mysqli_query($conexion, $sql);
-        ?>
-      <?php
-      };
-      ?>   
-    </div>
+                  }else{  <?php */
+              $p_Id = "";
+              $p_Id_Camion = $_POST['id'];
+              $p_Id_Trabajador = $_POST['id2'];
+              $p_Marca_Ca = $_POST['marca'];
+              $p_Modelo_Ca = $_POST['modelo'];
+              $p_Nombre_Ca = $_POST['nombre'];
+              $p_Patente_Ca = $_POST['patente'];
+              $p_Rut_Tra = $_POST['rut'];
+              $p_Nombre_Tra = $_POST['nom'];
+              $p_Fecha_Asignacion = date("Y-m-d");
+              $p_Estado = $_POST['estado'];
+              $p_Fecha_Modificacion = "";
+              $sql = "INSERT INTO asignacion_camiones 
+                      VALUES('".$p_Id."','".$p_Id_Camion."','".$p_Id_Trabajador."','".$p_Marca_Ca."','".$p_Modelo_Ca."','".$p_Nombre_Ca."','".$p_Patente_Ca."','".$p_Rut_Tra."','".$p_Nombre_Tra."','".$p_Fecha_Asignacion."','".$p_Estado."','".$p_Fecha_Modificacion."')";
+              echo '<script>alert("El Camión '.$_POST['nombre'].' fue asignado al trabajador '.$_POST['nom'].' exitosamente.");</script>';
+              require("conecta.php");
+              $conexion = Conectarse();
+              mysqli_query($conexion, $sql);
+            ?>
+            <?php
+            };
+            ?>   
+      </div>
     </div>
     <script type="text/javascript">
       swfobject.registerObject("FlashID");
