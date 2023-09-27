@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("../../index.php");</SCRIPT>';
-      exit;
-    }  
+<?php 
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("../../index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -54,15 +54,15 @@
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php  if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-	  <? } ?>
+	  <?php  } ?>
     </ul>
   </div>
    <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php  echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="../../configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -70,7 +70,7 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -78,7 +78,7 @@
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
-    <?
+    <?php 
 		}
 	?>
   </div>
@@ -137,12 +137,12 @@
 	
 	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	  
-	  	$result=mysql_query("select * from n_operador where Estado='DESPEDIDO' and Descripcion='Administrativo'");
-		if ($row = mysql_fetch_array($result)){ 
+	  	$result=mysqli_query($conexion,"select * from n_operador where Estado='DESPEDIDO' and Descripcion='Administrativo'");
+		if ($row = mysqli_fetch_array($result)){ 
 			echo '<select name="nombre" id="select">';
 			do {
        			echo '<option value='.$row["Rut_Operador"].'>'.$row["Nombre_Operador"].'</option>';		  
-			} while ($row = mysql_fetch_array($result)); 
+			} while ($row = mysqli_fetch_array($result)); 
 			echo '</select>';
 		}
 	   
@@ -156,49 +156,49 @@
     
     <?php
 	
-	if($_POST[button2]=="Buscar")
+	if($_POST['button2']=="Buscar")
 	{
 		$sql="select * from n_operador where Rut_Operador =".$_POST['nombre']." and Estado='DESPEDIDO'";
-		$respuesta=mysql_query($sql,$conexion);
-		if(mysql_affected_rows()>0)
+		$respuesta=mysqli_query($conexion,$sql);
+		if(mysqli_num_rows($respuesta)>0)
 		{
 			echo "";
-			$registro=mysql_fetch_row($respuesta);
+			$registro=mysqli_fetch_row($respuesta);
 	?>
     
     <table width="630" border="0" align="center">
       <tr>
         <td width="102">Nombre</td>
         <td width="215"><label>
-          <input name="nombre1" type="text" id="nombre1" value="<? echo $registro[2];?>" size="25" readonly="readonly"/>
+          <input name="nombre1" type="text" id="nombre1" value="<?php  echo $registro[2];?>" size="25" readonly="readonly"/>
         </label></td>
         <td width="119">Rut
-        <input name="rut1" type="hidden" id="rut1" value="<? echo $registro[1];?>"></td>
+        <input name="rut1" type="hidden" id="rut1" value="<?php  echo $registro[1];?>"></td>
         <td width="176"><label>
-          <input name="rut" type="text" id="rut" value="<? echo $registro[1];?>" size="25" maxlength="12" readonly="readonly"/>
+          <input name="rut" type="text" id="rut" value="<?php  echo $registro[1];?>" size="25" maxlength="12" readonly="readonly"/>
         </label></td>
       </tr>
       <tr>
         <td>Dirección</td>
         <td colspan="3"><label>
-          <input name="direccion" type="text" id="direccion" value="<? echo $registro[3];?>" size="80" maxlength="100"/>
+          <input name="direccion" type="text" id="direccion" value="<?php  echo $registro[3];?>" size="80" maxlength="100"/>
         </label></td>
       </tr>
       <tr>
         <td>Fono Contacto</td>
         <td><label>
-          <input name="telefono" type="text" id="telefono" value="<? echo $registro[4];?>" size="25" maxlength="25"/>
+          <input name="telefono" type="text" id="telefono" value="<?php  echo $registro[4];?>" size="25" maxlength="25"/>
         </label></td>
         <td>Cargo</td>
-        <td><input name="cargo" type="text" id="cargo" value="<? echo $registro[9];?>" size="25" /></td>
+        <td><input name="cargo" type="text" id="cargo" value="<?php  echo $registro[9];?>" size="25" /></td>
       </tr>
     </table>
     <table width="630" border="0" align="center">
       <tr>
         <td width="101" height="21">Estado</td>
-        <td width="215"><input name="textfield3" type="text" id="textfield3" value="<? echo $registro[14];?>" size="25"></td>
+        <td width="215"><input name="textfield3" type="text" id="textfield3" value="<?php  echo $registro[14];?>" size="25"></td>
         <td width="121">Fecha Ingreso</td>
-        <td width="175"><input name="horario" type="text" id="horario" value="<? echo $registro[13];?>" size="25"></td>
+        <td width="175"><input name="horario" type="text" id="horario" value="<?php  echo $registro[13];?>" size="25"></td>
         </tr>
     </table>
     <table width="630" border="0" align="center">
@@ -221,8 +221,8 @@
       <tr>
         <td width="70" align="center">&nbsp;</td>
         <td colspan="2"><input name="contratado" type="hidden" id="contratado" value="CONTRATADO">
-          <input name="entrada" type="hidden" id="entrada" value="<? echo date("Y-m-d"); ?>">
-          <input name="nick" type="hidden" value="<? echo "".$_SESSION['Nick'].""; ?>" />
+          <input name="entrada" type="hidden" id="entrada" value="<?php  echo date("Y-m-d"); ?>">
+          <input name="nick" type="hidden" value="<?php  echo "".$_SESSION['Nick'].""; ?>" />
           <input type="hidden" name="prueba" id="prueba" /></td>
         </tr>
       <tr>
@@ -255,39 +255,39 @@
 	}
 	
 	
-	if($_POST[button]=="Limpiar")
+	if($_POST['button']=="Limpiar")
 	{
 		
 		
 	}
 	
-	if($_POST[button]=="Reincorporar")
+	if($_POST['button']=="Reincorporar")
 	{
-		$nombre=$_POST[nombre1];
+		$nombre=$_POST['nombre1'];
 		
 		echo '<script>alert("Al Reincorporar un Trabajdor del SCS se denota que éste a sido Recontratado por la Empresa.");</script>';
 		
 	$sql="select * from usuarios where Clave_Permiso =".$_POST['Clave'];
-		$respuesta=mysql_query($sql,$conexion);
+		$respuesta=mysqli_query($conexion,$sql);
 		
 		if($p_Clave_Permiso==$respuesta)
 		{	
 		
-		if($_POST[checkbox]=="")
+		if($_POST['checkbox']=="")
 		{
 			echo '<script>alert("No puede Realizar este proceso, si no Acepta la Reincorporación");</script>';
 		}else{
-			if($_POST[clave]=="")
+			if($_POST['clave']=="")
 			{
-				echo '<script>alert("No puede Eliminar los Datos de '.$_POST[nombre1].', si no ingresa la CLAVE PERMISO.");</script>';
+				echo '<script>alert("No puede Eliminar los Datos de '.$_POST['nombre1'].', si no ingresa la CLAVE PERMISO.");</script>';
 			}else{
 				
-			$sql="update n_operador set Fecha_Ingreso='".$_POST[entrada]."',Motivo='".$_POST[prueba]."',Eliminar_Usuario='".$_POST[nick   			]."',Estado='".$_POST[contratado]."',Fecha_Salida='".$_POST[prueba]."' WHERE Rut_Operador='".$_POST[rut1]."' ";
-			$respuesta=mysql_query($sql,$conexion);
+			$sql="update n_operador set Fecha_Ingreso='".$_POST['entrada']."',Motivo='".$_POST['prueba']."',Eliminar_Usuario='".$_POST['nick']."',Estado='".$_POST['contratado']."',Fecha_Salida='".$_POST['prueba']."' WHERE Rut_Operador='".$_POST['rut1']."' ";
+			$respuesta=mysqli_query($conexion,$sql);
 			
-			$sql="update usuarios set Nick='".$_POST[nick2]."',Clave='".$_POST[clave2]."' WHERE Nombre='".$_POST[nombre1]."' ";
+			$sql="update usuarios set Nick='".$_POST['nick2']."',Clave='".$_POST['clave2']."' WHERE Nombre='".$_POST['nombre1']."' ";
 			echo '<script>alert("El Trabajador a sido Reincorporado a ASETRANS Ltda.");</script>';			
-			$respuesta=mysql_query($sql,$conexion);
+			$respuesta=mysqli_query($conexion,$sql);
 			}
 		}
 		}else{
@@ -299,7 +299,6 @@
   </div>
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>

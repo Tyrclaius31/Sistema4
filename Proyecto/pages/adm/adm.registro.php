@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("../../index.php");</SCRIPT>';
-      exit;
-    }  
+<?php 
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("../../index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -66,15 +66,15 @@
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php  if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-	  <? } ?>
+	  <?php  } ?>
     </ul>
   </div>
    <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php  echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="../../configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -82,7 +82,7 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -90,7 +90,7 @@
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
-    <?
+    <?php 
 		}
 	?>
   </div>
@@ -358,114 +358,127 @@ esto implíca. </textarea>
     </table>
     <?php
 		//Funcion Fecha
-				function fecha(){ $mes = date("n"); $mesArray = array( 1 => "01", 2 => "02", 3 => "03", 4 => "04", 5 => "05", 6 => "06", 7 => "07", 8 => "08", 9 => "09"                , 10 => "10"    , 11 => "11", 12 => "12" ); 
-	            $semana = date("D");  
-	            $mesReturn = $mesArray[$mes]; $semanaReturn = $semanaArray[$semana]; 
+				function fecha(){ $mes = date("n"); 
+              $mesArray = array( 1 => "01", 2 => "02", 3 => "03", 4 => "04", 5 => "05", 6 => "06", 7 => "07", 8 => "08", 9 => "09", 10 => "10", 11 => "11", 12 => "12" ); 
+	            $semana = date("D");
+              $semanaArray = array(
+                'Mon' => 'Lun',
+                'Tue' => 'Mar',
+                'Wed' => 'Mié',
+                'Thu' => 'Jue',
+                'Fri' => 'Vie',
+                'Sat' => 'Sáb',
+                'Sun' => 'Dom'
+              );  
+	            $mesReturn = $mesArray[$mes];
+              $semanaReturn = $semanaArray[$semana]; 
 	            $dia = date("d"); $año = date ("Y"); return $semanaReturn." ".$año."-".$mesReturn."-".$dia; }
 				
 ?>
-    <input type="hidden" name="fecha" id="fecha" value="<?=fecha() ?>" />
+    <input type="hidden" name="fecha" id="fecha" value="<?php echo fecha(); ?>" />
   </form>
     <?php
 		
-	function validaRut($rut){
-    if(strpos($rut,"-")==false){
-        $RUT[0] = substr($rut, 0, -1);
-        $RUT[1] = substr($rut, -1);
-    }else{
-        $RUT = explode("-", trim($rut));
-    }
-    $elRut = str_replace(".", "", trim($RUT[0]));
-    $factor = 2;
-    for($i = strlen($elRut)-1; $i >= 0; $i--):
-        $factor = $factor > 7 ? 2 : $factor;
-        $suma += $elRut{$i}*$factor++;
-    endfor;
-    $resto = $suma % 11;
-    $dv = 11 - $resto;
-    if($dv == 11){
-        $dv=0;
-    }else if($dv == 10){
-        $dv="k";
-    }else{
-        $dv=$dv;
-    }
-   if($dv == trim(strtolower($RUT[1]))){
-       return true;
-   }else{
-       return false;
-   }
-}
+    function validaRut($rut) {
+      if(strpos($rut, "-") === false) {
+          $RUT[0] = substr($rut, 0, -1);
+          $RUT[1] = substr($rut, -1);
+      } else {
+          $RUT = explode("-", trim($rut));
+      }
+      $elRut = str_replace(".", "", trim($RUT[0]));
+      $factor = 2;
+      $suma = 0; // Agregar inicialización de la variable $suma
+      for($i = strlen($elRut)-1; $i >= 0; $i--) {
+          $factor = $factor > 7 ? 2 : $factor;
+          $suma += substr($elRut, $i, 1) * $factor++; // Cambiar acceso a carácter por substr()
+      }
+      $resto = $suma % 11;
+      $dv = 11 - $resto;
+      if($dv == 11) {
+          $dv = "0";
+      } else if($dv == 10) {
+          $dv = "k";
+      } else {
+          $dv = (string)$dv; // Convertir a string para evitar errores de comparación
+      }
+      if(trim(strtolower($RUT[1])) === $dv) { // Agregar trim() y strtolower() para comparación
+          return true;
+      } else {
+          return false;
+      }
+  }
+  
 
 	
-	if($_POST[button]=="Ingresar Trabajador")
+	if($_POST['button']=="Ingresar Trabajador")
 	{
-		if ($_POST[nombre]== "") {
+		if ($_POST['nombre']== "") {
     	echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';
 		}else{
-			if ($_POST[rut]== "") {
+			if ($_POST['rut']== "") {
     		echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';
 			}else{
-    			if ($_POST[direccion]== "") {
+    			if ($_POST['direccion']== "") {
     			echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';
 				}else{
-     				if ($_POST[tel1]== "") {
+     				if ($_POST['tel1']== "") {
     				echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';
 					}else{
-					if ($_POST[cargo]== "") {
+					if ($_POST['cargo']== "") {
     				echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';
 					}else{
-					if ($_POST[descripcion]== "") {
+					if ($_POST['descripcion']== "") {
 					echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';	
 					}else{
-					if ($_POST[turno]== "") {
+					if ($_POST['turno']== "") {
 					echo '<script>alert("Debe Completar todos los Campos para el Registro");</script>';		
 					}else{
-     				if ($_POST[checkbox]== "") {
+     				if ($_POST['checkbox']== "") {
 					echo '<script>alert("Debe Aceptar el Ingreso al SCS "Sistema de Control de Servicios"");</script>';	
 					}else{
-					if(validaRut($_POST[rut])==true){
+					if(validaRut($_POST['rut'])==true){
 				
 					$p_Id="";
-					$p_Rut_Operador=$_POST[rut];
-					$p_Nombre_Operador=$_POST[nombre];
-					$p_Direccion_Operador=$_POST[direccion];
-					$p_Fono_Contacto=$_POST[tel1];
-					$p_Fono_Contacto2=$_POST[tel2];
-					$p_Dia=$_POST[dia];
-					$p_Mes=$_POST[mes];
-					$p_Ano=$_POST[ano];
-					$p_Cargo_Operador=$_POST[cargo];
-					$p_Licencia=$_POST[licencia];
-					$p_Descripcion=$_POST[descripcion];
-					$p_Turno_Operador=$_POST[turno];
-					$p_Fecha_Ingreso=$_POST[fecha];
-					$p_Estado=$_POST[contratado];
+					$p_Rut_Operador=$_POST['rut'];
+					$p_Nombre_Operador=$_POST['nombre'];
+					$p_Direccion_Operador=$_POST['direccion'];
+					$p_Fono_Contacto=$_POST['tel1'];
+					$p_Fono_Contacto2=$_POST['tel2'];
+					$p_Dia=$_POST['dia'];
+					$p_Mes=$_POST['mes'];
+					$p_Ano=$_POST['ano'];
+					$p_Cargo_Operador=$_POST['cargo'];
+					$p_Licencia=$_POST['licencia'];
+					$p_Descripcion=$_POST['descripcion'];
+					$p_Turno_Operador=$_POST['turno'];
+					$p_Fecha_Ingreso=$_POST['fecha'];
+					$p_Estado=$_POST['contratado'];
 					$p_Motivo="";
 					$p_Eliminar_Usuario="";
 					$p_Fecha_Salida="";
 					$p_Modificacion_Usuario="";
 					$p_Fecha_Modificacion="";
 		
-		$sql="insert into n_operador values('".$p_Id."','".$p_Rut_Operador."','".$p_Nombre_Operador."','".         			 	 	       	$p_Direccion_Operador."','".$p_Fono_Contacto."','".$p_Fono_Contacto2."','".$p_Dia."','".$p_Mes."','".$p_Ano."','".				     	$p_Cargo_Operador."','".$p_Licencia."','".$p_Descripcion."','".$p_Turno_Operador."','".$p_Fecha_Ingreso."','".$p_Estado."','".      	$p_Motivo."','".$p_Eliminar_Usuario."','".$p_Fecha_Salida."','".$p_Modificacion_Usuario."','".$p_Fecha_Modificacion."')";
-		$conexion=mysql_connect("localhost","root","");
-		mysql_select_db("asetrans",$conexion);
-		mysql_query($sql,$conexion);
+		$sql="insert into n_operador values('".$p_Id."','".$p_Rut_Operador."','".$p_Nombre_Operador."','".$p_Direccion_Operador."','".$p_Fono_Contacto."','".$p_Fono_Contacto2."','".$p_Dia."','".$p_Mes."','".$p_Ano."','".$p_Cargo_Operador."','".$p_Licencia."','".$p_Descripcion."','".$p_Turno_Operador."','".$p_Fecha_Ingreso."','".$p_Estado."','".$p_Motivo."','".$p_Eliminar_Usuario."','".$p_Fecha_Salida."','".$p_Modificacion_Usuario."','".$p_Fecha_Modificacion."')";
+    include('conecta.php');
+    $conexion=Conectarse();
+		mysqli_query($conexion,$sql);
 		
-		if (@!mysql_query($sql)){ 
-		echo '<script>alert("No puede realizar el Registro, pues el Rut '.$_POST[rut].', ya existe en la Base de Datos. No se puede 	  		Duplicar este Dato.");</script>';
+		if (!mysqli_query($conexion,$sql)){ 
+		echo '<script>alert("No puede realizar el Registro, pues el Rut '.$_POST['rut'].', ya existe en la Base de Datos. No se puede Duplicar este Dato.");</script>';
 		}else{
 			
-			if ($_POST[checkbox2]!= "") {
+			if ($_POST['checkbox2']!= "") {
 		
-					$p_Nick=$_POST[nick];
-					$p_Clave=$_POST[clave];
+					$p_Nick=$_POST['nick'];
+					$p_Clave=$_POST['clave'];
 					$p_Clave_Permiso="";
 		
-		$sql="insert into usuarios values('".$p_Id."','".$p_Nick."','".$p_Clave."','".Clave_Permiso."','".$p_Nombre_Operador."','".      	$p_Cargo_Operador."')";
-		$conexion=mysql_connect("localhost","root","");
-		mysql_select_db("asetrans",$conexion);
-		mysql_query($sql,$conexion);
+		$sql="insert into usuarios values('".$p_Id."','".$p_Nick."','".$p_Clave."','".$Clave_Permiso."','".$p_Nombre_Operador."','".$p_Cargo_Operador."')";
+    include('conecta.php');
+    $conexion=Conectarse();
+		mysqli_query($conexion,$sql);
 		}
 			
 		echo '<script>alert("El Trabajador '.$p_Nombre_Operador.' ha sido Registardo en el Sistema.");</script>';
@@ -485,7 +498,7 @@ esto implíca. </textarea>
 	}
 	
 	
-	if($_POST[button]=="Limpiar")
+	if($_POST['button']=="Limpiar")
 	{
 		
 	}
@@ -501,7 +514,7 @@ esto implíca. </textarea>
   </div>
 </div>
 <script type="text/javascript">
-<!--
+
 swfobject.registerObject("FlashID");
 //-->
 </script>

@@ -34,3 +34,10 @@ Thumbs.db
 Proyecto/conecta.php
 .vscode/settings.json
 Proyecto/connect.php
+Proyeto/pages/adm/conecta.php
+Proyeto/pages/camiones/conecta.php
+Proyeto/pages/guias/conecta.php
+Proyeto/pages/pago/conecta.php
+Proyeto/pages/petroleo/conecta.php
+Proyeto/pages/produccion/conecta.php
+Proyeto/pages/trabajadores/conecta.php

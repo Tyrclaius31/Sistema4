@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("../../index.php");</SCRIPT>';
-      exit;
-    }  
+<?php
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("../../index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -80,15 +80,15 @@ function impre(num) {
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-	  <? } ?>
+	  <?php } ?>
     </ul>
   </div>
    <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="../../configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -96,7 +96,7 @@ function impre(num) {
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -104,7 +104,7 @@ function impre(num) {
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
-    <?
+    <?php
 		}
 	?>
   </div>
@@ -163,14 +163,14 @@ function impre(num) {
   <tr><td width='60'>RUT</td><td width='120'>NOMBRE</td><td width='60'>TELEFONO</td><td width='200'>DIRECCION</td><td width='60'>CARGO</td><td width='60'>LICENCIA</td><td width='60'>ULT. MOD.</td><td width='80'>USUARIO</td></tr></table></font></b>";
 	echo "<hr>";
 		$sql="select * from n_operador where Estado='CONTRATADO' and Descripcion='Administrativo'";
-		$respuesta=mysql_query($sql,$conexion);
-		while($row=mysql_fetch_array($respuesta))
+		$respuesta=mysqli_query($conexion,$sql);
+		while($row=mysqli_fetch_array($respuesta))
 		{
 			echo "<table width='700' border='0' align='center'><tr><td width='60'>".$row["Rut_Operador"]."</td><td width='120'>".$row["Nombre_Operador"]."</td><td width='60'>".$row["Fono_Contacto"]."</td><td width='200'>".$row["Direccion_Operador"]."</td><td width='60'>".$row["Cargo_Operador"]."</td><td width='60'>".$row["Licencia"]."</td><td width='60'>".$row["Fecha_Modificacion"]."</td><td width='80'>".$row["Modificacion_Usuario"]."</td></tr></table>";
 		}
 	//}
 	
-	if($_POST[button]=="Limpiar")
+	if($_POST['button']=="Limpiar")
 	{
 		
 	}
@@ -184,7 +184,6 @@ function impre(num) {
   </div>
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>

@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("index.php");</SCRIPT>';
-      exit;
-    }  
+<?php 
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("../../index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -61,15 +61,15 @@
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php  if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-	  <? } ?>
+	  <?php  } ?>
     </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php  echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="../../configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="../../index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -77,7 +77,7 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -85,7 +85,7 @@
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
-    <?
+    <?php 
 		}
 	?>
   </div>
@@ -163,101 +163,101 @@
 	include "../../graficos/FusionCharts.php";
 	include "../../graficos/Functions.php";
 	
-	if($_POST[button]=="Buscar")
+	if($_POST['button']=="Buscar")
 	{
-		$sql="select sum(Total) from fletes_ocacion where Mes ='01' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='01' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio1 = $registro[0];
 				}
 		
-		$sql="select sum(Total) from fletes_ocacion where Mes ='02' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='02' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio2 = $registro[0];
 				}
 		
-		$sql="select sum(Total) from fletes_ocacion where Mes ='03' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='03' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio3 = $registro[0];
 				}
 		
-		$sql="select sum(Total) from fletes_ocacion where Mes ='04' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='04' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio4 = $registro[0];
 				}
 				
-		$sql="select sum(Total) from fletes_ocacion where Mes ='05' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='05' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio5 = $registro[0];
 				}
 				
-		$sql="select sum(Total) from fletes_ocacion where Mes ='06' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='06' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio6 = $registro[0];
 				}
 				
-		$sql="select sum(Total) from fletes_ocacion where Mes ='07' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='07' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio7 = $registro[0];
 				}
 		
-		$sql="select sum(Total) from fletes_ocacion where Mes ='08' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='08' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio8 = $registro[0];
 				}
 		
-		$sql="select sum(Total) from fletes_ocacion where Mes ='09' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='09' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio9 = $registro[0];
 				}
 		
-		$sql="select sum(Total) from fletes_ocacion where Mes ='10' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='10' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio10 = $registro[0];
 				}
 				
-		$sql="select sum(Total) from fletes_ocacion where Mes ='11' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='11' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio11 = $registro[0];
 				}
 				
-		$sql="select sum(Total) from fletes_ocacion where Mes ='12' and Ano=".$_POST[ano];
-				$respuesta=mysql_query($sql,$conexion);
-				if(mysql_affected_rows()>0)
+		$sql="select sum(Total) from fletes_ocacion where Mes ='12' and Ano=".$_POST['ano'];
+				$respuesta=mysqli_query($conexion,$sql);
+				if(mysqli_num_rows($respuesta)>0)
 				{
-					$registro=mysql_fetch_row($respuesta);
+					$registro=mysqli_fetch_row($respuesta);
 					$intTotalAnio12 = $registro[0];
 				}
 	
@@ -289,7 +289,6 @@
   </div>
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>

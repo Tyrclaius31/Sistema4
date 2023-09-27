@@ -1,15 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("../../index.php");</SCRIPT>';
-      exit;
-    }  
+<?php
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("../../index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
@@ -59,15 +59,15 @@
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php  if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-	  <? } ?>
+	  <?php  } ?>
     </ul>
   </div>
    <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php  echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="../../configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -75,7 +75,7 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -83,7 +83,7 @@
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
-    <?
+    <?php 
 		}
 	?>
   </div>
@@ -140,12 +140,12 @@
 	include("conecta.php");
 	$conexion=Conectarse();
 	  
-	  	$result=mysql_query("select * from n_operador where Estado='CONTRATADO' and Descripcion='Administrativo'");
-		if ($row = mysql_fetch_array($result)){ 
+	  	$result=mysqli_query($conexion,"select * from n_operador where Estado='CONTRATADO' and Descripcion='Administrativo'");
+		if ($row = mysqli_fetch_array($result)){ 
 			echo '<select name="nombre" id="select">';
 			do {
        			echo '<option value='.$row["Rut_Operador"].'>'.$row["Nombre_Operador"].'</option>';		  
-			} while ($row = mysql_fetch_array($result)); 
+			} while ($row = mysqli_fetch_array($result)); 
 			echo '</select>';
 		}
 	   
@@ -159,73 +159,73 @@
     
     <?php
 	
-	if($_POST[button2]=="Buscar")
+	if($_POST['button2']=="Buscar")
 	{
 		$sql="select * from n_operador where Rut_Operador =".$_POST['nombre'];
-		$respuesta=mysql_query($sql,$conexion);
-		if(mysql_affected_rows()>0)
+		$respuesta=mysqli_query($conexion,$sql);
+		if(mysqli_num_rows($respuesta)>0)
 		{
 			echo "";
-			$registro=mysql_fetch_row($respuesta);
+			$registro=mysqli_fetch_row($respuesta);
 	?>
     
     <table width="657" border="0" align="center">
       <tr>
         <td width="127">Nombre</td>
         <td width="201"><label>
-          <input name="nombre1" type="text" id="nombre1" value="<? echo $registro[2];?>" size="25" readonly="readonly"/>
+          <input name="nombre1" type="text" id="nombre1" value="<?php  echo $registro[2];?>" size="25" readonly="readonly"/>
           <script type="text/javascript">  var nombre1 = new LiveValidation('nombre1'); nombre1.add(Validate.Presence);</script> 
         </label></td>
         <td width="106">Rut
-        <input name="rut1" type="hidden" id="rut1" value="<? echo $registro[1];?>"></td>
+        <input name="rut1" type="hidden" id="rut1" value="<?php  echo $registro[1];?>"></td>
         <td width="205"><label>
-          <input name="rut" type="text" disabled id="rut" value="<? echo $registro[1];?>" size="25" maxlength="12"/>
+          <input name="rut" type="text" disabled id="rut" value="<?php  echo $registro[1];?>" size="25" maxlength="12"/>
         </label></td>
       </tr>
       <tr>
         <td>Dirección</td>
         <td colspan="3"><label>
-          <input name="direccion" type="text" id="direccion" value="<? echo $registro[3];?>" size="77" maxlength="100"/>
+          <input name="direccion" type="text" id="direccion" value="<?php  echo $registro[3];?>" size="77" maxlength="100"/>
           <script type="text/javascript">  var direccion = new LiveValidation('direccion'); direccion.add(Validate.Presence);</script> 
         </label></td>
       </tr>
       <tr>
         <td>Fono Contacto</td>
-        <td><input name="telefono" type="text" id="telefono" value="<? echo $registro[4];?>" size="25" maxlength="25"/>
+        <td><input name="telefono" type="text" id="telefono" value="<?php  echo $registro[4];?>" size="25" maxlength="25"/>
           <script type="text/javascript">  var telefono = new LiveValidation('telefono'); telefono.add(Validate.Presence);</script> 
         </td>
         <td>Fono Contacto 2</td>
-        <td><input name="telefono2" type="text" id="telefono2" value="<? echo $registro[5];?>" size="25" maxlength="25"/>
+        <td><input name="telefono2" type="text" id="telefono2" value="<?php  echo $registro[5];?>" size="25" maxlength="25"/>
           <script type="text/javascript"> var telefono2 = new LiveValidation('telefono2'); telefono2.add(Validate.Presence);</script>
         </td>
       </tr>
       <tr>
         <td>Licencia</td>
         <td><label>
-          <input name="licencia" type="text" id="licencia" value="<? echo $registro[10];?>" size="25" />
+          <input name="licencia" type="text" id="licencia" value="<?php  echo $registro[10];?>" size="25" />
           <script type="text/javascript">  var licencia = new LiveValidation('licencia'); licencia.add(Validate.Presence);</script> 
         </label></td>
         <td>Cargo</td>
-        <td><input name="cargo" type="text" id="cargo" value="<? echo $registro[9];?>" size="25" />
+        <td><input name="cargo" type="text" id="cargo" value="<?php  echo $registro[9];?>" size="25" />
           <script type="text/javascript">  var cargo = new LiveValidation('cargo'); cargo.add(Validate.Presence);</script> 
         </td>
       </tr>
       <tr>
         <td>Descripción</td>
-        <td><input name="zona" type="text" id="zona" value="<? echo $registro[11];?>" size="25" />
+        <td><input name="zona" type="text" id="zona" value="<?php  echo $registro[11];?>" size="25" />
           <script type="text/javascript">  var zona = new LiveValidation('zona'); zona.add(Validate.Presence);</script> 
         </td>
         <td>Turno</td>
-        <td><input name="textfield" type="text" disabled id="textfield" value="<? echo $registro[12];?>" size="25" /></td>
+        <td><input name="textfield" type="text" disabled id="textfield" value="<?php  echo $registro[12];?>" size="25" /></td>
       </tr>
       <tr>
         <td>Fecha Ingreso</td>
-        <td><input name="textfield3" type="text" disabled id="textfield3" value="<? echo $registro[13];?>" size="25" /></td>
+        <td><input name="textfield3" type="text" disabled id="textfield3" value="<?php  echo $registro[13];?>" size="25" /></td>
         <td>Estado</td>
         <td>
-        <input name="textfield4" type="text" disabled id="textfield4" value="<? echo $registro[14];?>" size="25" />
-        <input name="modificar" type="hidden" id="modificar" value="<? echo date("Y-m-d"); ?>" />
-        <input name="nick" type="hidden" value="<? echo "".$_SESSION['Nick'].""; ?>" /></td>
+        <input name="textfield4" type="text" disabled id="textfield4" value="<?php  echo $registro[14];?>" size="25" />
+        <input name="modificar" type="hidden" id="modificar" value="<?php  echo date("Y-m-d"); ?>" />
+        <input name="nick" type="hidden" value="<?php  echo "".$_SESSION['Nick'].""; ?>" /></td>
       </tr>
     </table>
     <table width="200" border="0" align="center">
@@ -256,29 +256,29 @@
 	}
 	
 	
-	if($_POST[button]=="Limpiar")
+	if($_POST['button']=="Limpiar")
 	{
 		
 		
 	}
 	
-	if($_POST[button]=="Modificar")
+	if($_POST['button']=="Modificar")
 	{
 	$sql="select * from usuarios where Clave_Permiso =".$_POST['clave'];
-		$respuesta=mysql_query($sql,$conexion);
+		$respuesta=mysqli_query($conexion,$sql);
 		
 		if($p_Clave_Permiso==$respuesta)
 		{	
-			if($_POST[clave]=="")
+			if($_POST['clave']=="")
 			{
-				echo '<script>alert("No puede Modificar los datos de '.$_POST[nombre1].', si no ingresa la CLAVE PERMISO.");</script>';
+				echo '<script>alert("No puede Modificar los datos de '.$_POST['nombre1'].', si no ingresa la CLAVE PERMISO.");</script>';
 			}else{
-				$sql="update n_operador set Nombre_Operador='".$_POST[nombre1]."',Direccion_Operador='".$_POST[direccion]   			     			."',Fono_Contacto='".$_POST[telefono]."',Fono_Contacto2='".$_POST[telefono2]."',Cargo_Operador='".$_POST[ 			    			cargo]."',Licencia='".$_POST[licencia]."',Descripcion='".$_POST[zona]."',Modificacion_Usuario='".$_POST[nick].           		"',Fecha_Modificacion='".$_POST[modificar]."' WHERE Rut_Operador='".$_POST[rut1]."' ";
+				$sql="update n_operador set Nombre_Operador='".$_POST['nombre1']."',Direccion_Operador='".$_POST['direccion']."',Fono_Contacto='".$_POST['telefono']."',Fono_Contacto2='".$_POST['telefono2']."',Cargo_Operador='".$_POST['cargo']."',Licencia='".$_POST['licencia']."',Descripcion='".$_POST['zona']."',Modificacion_Usuario='".$_POST['nick']."',Fecha_Modificacion='".$_POST['modificar']."' WHERE Rut_Operador='".$_POST['rut1']."' ";
 			
-				$respuesta=mysql_query($sql,$conexion);
+				$respuesta=mysqli_query($conexion,$sql);
 				
-				$sql="update usuarios set Cargo='".$_POST[cargo]."' WHERE Nombre='".$_POST[nombre1]."' ";
-				echo '<script>alert("La Modificacion en '.$_POST[nombre1].', se Realizo con exito.");</script>';
+				$sql="update usuarios set Cargo='".$_POST['cargo']."' WHERE Nombre='".$_POST['nombre1']."' ";
+				echo '<script>alert("La Modificacion en '.$_POST['nombre1'].', se Realizo con exito.");</script>';
 		}
 		}else{
 			echo '<script>alert("Clave Permiso ERRÓNEA");</script>';
@@ -294,7 +294,7 @@
   </div>
 </div>
 <script type="text/javascript">
-<!--
+
 swfobject.registerObject("FlashID");
 //-->
 </script>

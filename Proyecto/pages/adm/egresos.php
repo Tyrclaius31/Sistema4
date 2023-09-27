@@ -1,16 +1,15 @@
-<?
- 	session_start("Id");
-    if (!(session_is_registered("Id")))
-    {
-      session_unset();
-      session_destroy();
-	  echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-    	location.href=("index.php");</SCRIPT>';
-      exit;
-    }  
+<?php 
+ 	// session_start();
+  //  if (!isset($_SESSION["Id"]))
+  //   {
+  //     $_SESSION = array();
+  //     session_destroy();
+	//   echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+  //   	location.href=("../../index.php");</SCRIPT>';
+  //     exit;
+  //   }  
 	
-	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
-	
+	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -61,15 +60,15 @@
       <li><a href="../../petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
       <li><a href="../../pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
       <li><a href="../../egresos.php" title="Categoria SudMenu 'Egresos'">Egresos</a></li>
-      <? if($_SESSION[Cargo]=='SUPERVISOR' or $_SESSION[Cargo]=='ADMINISTRADOR'){  ?>
+      <?php  if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
       <li><a href="../../administracion.php" title="Administración del Sitio">Administración</a></li>
-	  <? } ?>
+	  <?php  } ?>
     </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">
       <tr>
-        <td width="182">Usuario: <? echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
+        <td width="182">Usuario: <?php  echo "".$_SESSION['Nick']." - ".$_SESSION['Cargo']."";?></td>
         <td width="72" align="center"><a href="../../configurar.php">Configurar</a></td>
         <td width="47" align="center"><a href="../../index.php" target="_parent">
           <input type="submit" name="button" id="button" value="Salir" />
@@ -77,7 +76,7 @@
       </tr>
     </table>
     <?php
-		if($_POST[button]=="Salir")
+		if($_POST['button']=="Salir")
 		{
 			session_destroy();
 			
@@ -85,7 +84,7 @@
     <script type="text/javascript">
 		window.location="../../index.php";
 		</script>
-    <?
+    <?php 
 		}
 	?>
   </div>
@@ -163,95 +162,95 @@
 	include "../../graficos/FusionCharts.php";
 	include "../../graficos/Functions.php";
 	
-	if($_POST[button]=="Buscar")
+	if($_POST['button']=="Buscar")
 	{
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='01' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='01' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='01' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='01' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio1 = $registro[0];
 				}
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='02' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='02' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='02' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='02' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio2 = $registro[0];
 				}
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='03' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='03' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='03' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='03' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio3 = $registro[0];
 				}
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='04' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='04' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='04' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='04' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio4 = $registro[0];
 				}
 				
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='05' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='05' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='05' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='05' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio5 = $registro[0];
 				}
 				
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='06' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='06' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='06' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='06' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio6 = $registro[0];
 				}
 				
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='07' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='07' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='07' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='07' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio7 = $registro[0];
 				}
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='08' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='08' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='08' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='08' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio8 = $registro[0];
 				}
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='09' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='09' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='09' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='09' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio9 = $registro[0];
 				}
 		
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='10' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='10' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='10' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='10' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio10 = $registro[0];
 				}
 				
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='11' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='11' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='11' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='11' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio11 = $registro[0];
 				}
 				
-		$ressaldo=mysql_query("SELECT ((select sum(Costo) from egresos where Mes ='12' and Ano=".$_POST[ano].") + (select sum(Costo) 	 		from egresos_iva where Mes ='12' and Ano=".$_POST[ano].") )");
-				if(mysql_affected_rows()>0)
+		$ressaldo=mysqli_query($conexion,"SELECT ((select sum(Costo) from egresos where Mes ='12' and Ano=".$_POST['ano'].") + (select sum(Costo) from egresos_iva where Mes ='12' and Ano=".$_POST['ano'].") )");
+				if(mysqli_num_rows($ressaldo)>0)
 				{
-					$registro=mysql_fetch_row($ressaldo);
+					$registro=mysqli_fetch_row($ressaldo);
 					$intTotalAnio12 = $registro[0];
 				}
 	
 		$strXML = "";
-		$strXML = "<chart caption = 'Grafico EGRESOS' bgColor='#FFFFFF' yAxisName='Nivel en Pesos' numberPrefix='$' 		        formatNumberScale='0' baseFontSize='9' showValues='1' xAxisName='Meses' decimals='1' enableSlicingMovement='1'
+		$strXML = "<chart caption = 'Grafico EGRESOS' bgColor='#FFFFFF' yAxisName='Nivel en Pesos' numberPrefix='$' formatNumberScale='0' baseFontSize='9' showValues='1' xAxisName='Meses' decimals='1' enableSlicingMovement='1'
 		showpercentvalues= '1' rotatevalues='1'>";
 			
 		$strXML .= "<set label = 'Ene' value ='".$intTotalAnio1."' color='2CD6E9'/>";
@@ -278,7 +277,6 @@
   </div>
 </div>
 <script type="text/javascript">
-<!--
 swfobject.registerObject("FlashID");
 //-->
 </script>
