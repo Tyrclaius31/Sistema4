@@ -24,27 +24,28 @@
 </head>
 <body>
 <div id="apDiv7">
-<ul>
-       <li><a href="pages/adm/petroleo.php" title="">Petróleo Anual</a></li>
-       <li><a href="pages/adm/egresos.php" title="">Egresos Anual</a></li>
-       <li><a href="pages/adm/produccion.php" title="">Producción Anual</a></li>
-       <li><a href="pages/adm/fletes.php" title="">Fletes Anual</a></li>
-</ul>
+  <ul>
+    <li><a href="pages/adm/petroleo.php" title="">Petróleo Anual</a></li>
+    <li><a href="pages/adm/egresos.php" title="">Egresos Anual</a></li>
+    <li><a href="pages/adm/produccion.php" title="">Producción Anual</a></li>
+    <li><a href="pages/adm/fletes.php" title="">Fletes Anual</a></li>
+  </ul>
 </div>
 <div id="contenedorgeneralll">
     <div id="menugeneral">
-    <ul>
-       <li><a href="principal.php" title="">Home</a></li>
-      <li><a href="trabajadores.php" title="Categoria SudMenu 'Trabajadores'">Trabajadores</a></li>
-      <li><a href="camiones.php" title="Categoria SudMenu 'Camiones'">Camiones</a></li>
-      <li><a href="guias.php" title="Categoria SudMenu 'Guías'">Guías</a></li>
-      <li><a href="produccion.php" title="Categoria SudMenu 'Producción'">Producción</a></li>
-      <li><a href="petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
-      <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
-      <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
-	<?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
-      <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
-	<?php } ?>    </ul>
+      <ul>
+        <li><a href="principal.php" title="">Home</a></li>
+        <li><a href="trabajadores.php" title="Categoria SudMenu 'Trabajadores'">Trabajadores</a></li>
+        <li><a href="camiones.php" title="Categoria SudMenu 'Camiones'">Camiones</a></li>
+        <li><a href="guias.php" title="Categoria SudMenu 'Guías'">Guías</a></li>
+        <li><a href="produccion.php" title="Categoria SudMenu 'Producción'">Producción</a></li>
+        <li><a href="petroleo.php" title="Categoria SudMenu 'Petróleo'">Petróleo</a></li>
+        <li><a href="pago.php" title="Categoria SudMenu 'Liquidaciones y Anticipos'">Liquidaciones</a></li>
+        <li><a href="egresos.php" title="Categoria SudMenu 'Pago de Cuentas'">Egresos</a></li>
+        <?php if($_SESSION['Cargo']=='SUPERVISOR' or $_SESSION['Cargo']=='ADMINISTRADOR'){  ?>
+            <li><a href="administracion.php" title="Administración del Sitio">Administración</a></li>
+        <?php } ?>    
+      </ul>
   </div>
   <div id="usuario">
     <table width="315" border="0" align="center">

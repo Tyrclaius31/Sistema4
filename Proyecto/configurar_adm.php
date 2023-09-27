@@ -106,7 +106,7 @@
               $sql="SELECT * FROM usuarios WHERE Clave=".$_POST['clave1'];
               $respuesta=mysqli_query($conexion, $sql);
               //TODO: Error por que no recibe nada de base de datos, debido a la falta de ingreso del usuario.
-              if(mysqli_affected_rows() > 0){
+              if(mysqli_num_rows($respuesta) > 0){
                 echo "";
                 $registro=mysqli_fetch_row($respuesta);
               ?>

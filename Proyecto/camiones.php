@@ -1,15 +1,15 @@
 <?php
-  // session_start();
-  // if (!isset($_SESSION["Id"]))
-  //   {
-  //     $_SESSION = array();
-  //     session_destroy();
-  //     echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
-  //     location.href=("index.php");</SCRIPT>';
-  //     exit;
-  //   }  
+  session_start();
+  if (!isset($_SESSION["Id"]))
+    {
+      $_SESSION = array();
+      session_destroy();
+      echo '<SCRIPT>alert("No se ha iniciado Session, Favor Registrarse.");
+      location.href=("index.php");</SCRIPT>';
+      exit;
+    }  
 	
-	// $fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
+	$fecha1= mktime(0,0,0,date("m"),date("d"),date("Y"));
 	
 ?>
 
